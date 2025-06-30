@@ -26,7 +26,7 @@ module "azure_flow_logs_storage_accounts" {
 
   storage_accounts = [
     {
-      name                = azurerm_storage_account.flowlogs.name
+      name                = random_string.random.id
       resource_group_name = "testdrive"
     },
   ]

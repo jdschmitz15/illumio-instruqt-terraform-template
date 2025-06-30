@@ -15,7 +15,7 @@ resource "random_string" "random" {
 resource "azurerm_storage_account" "flowlogs" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  name                = "us-west-${var.azure_subscription_id}"
+  name                = random_string.random.id
 
   account_tier              = "Standard"
   account_kind              = "StorageV2"
