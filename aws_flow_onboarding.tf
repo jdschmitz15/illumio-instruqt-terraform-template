@@ -1,4 +1,4 @@
-data "aws_iam_role" "example" {
+data "aws_iam_role" "illumio" {
   name = "IllumioCloudIntegrationRole"
 }
 
@@ -15,7 +15,7 @@ module "aws_account_dev" {
 module "aws_flow_logs_s3_buckets" {
   source         = "illumio/cloudsecure/illumio//modules/aws_flow_logs_s3_buckets"
   version        = "1.5.1"
-  role_id        = aws_account_dev.role_id
+  role_id        = data.aws_iam_role.illumio.id
   s3_bucket_arns = [
     aws_s3_bucket.s3bucket.arn
   ]
