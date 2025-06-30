@@ -16,13 +16,9 @@ module "azure_flow_logs_storage_accounts" {
 
   storage_accounts = [
     {
-      name                = random_string.random.id
+      name                = substr("testdrive${replace(var.azure_subscription_id, "-", "")}", 0, 24)
       resource_group_name = "testdrive"
     },
   ]
 
-  depends_on = [
-    azurerm_storage_account.flowlogs, 
-    azurerm_resource_group.rg
-      ]
 }
