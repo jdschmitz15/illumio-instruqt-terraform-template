@@ -16,16 +16,8 @@ module "azure_flow_logs_storage_accounts" {
 
   storage_accounts = [
     {
-      name                = "welcomegsk"
-      resource_group_name = "demo1"
+      name                = azurerm_storage_account.flowlogs.name
+      resource_group_name = azurerm_resource_group.rg.name
     },
-    {
-      name                = "secondstorage"
-      resource_group_name = "demo2"
-    },
-    {
-      name                = "thirdstorage"
-      resource_group_name = "demo3"
-    }
   ]
 }
