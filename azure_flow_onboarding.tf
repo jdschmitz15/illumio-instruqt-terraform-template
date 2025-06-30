@@ -16,7 +16,7 @@ module "azure_flow_logs_storage_accounts" {
 
   storage_accounts = [
     {
-      name                = substr("testdrive${replace(var.azure_subscription_id, "-", "")}", 0, 24)
+      name                = "testdrive-${split("@",var.account_id)[0]}"
       resource_group_name = "testdrive"
     },
   ]
