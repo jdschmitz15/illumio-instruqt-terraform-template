@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "us-east-1" 
-}
-
 variable "instance_ami" {
   description = "EC2 instance ami"
   type        = string

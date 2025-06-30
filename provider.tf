@@ -24,3 +24,15 @@ provider "illumio-cloudsecure" {
   client_id     = var.illumio_cloudsecure_client_id
   client_secret = var.illumio_cloudsecure_client_secret
 }
+
+provider "aws" {
+  region = "us-east-1" 
+}
+
+provider "azurerm" {
+  features {}
+  subscription_id = var.azure_subscription_id
+}
+
+provider "azuread" {
+}
