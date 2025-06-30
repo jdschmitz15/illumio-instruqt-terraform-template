@@ -17,4 +17,6 @@ module "aws_flow_logs_s3_buckets" {
   s3_bucket_arns = [
     aws_s3_bucket.s3bucket.arn,
   ]
+
+  depends_on = [aws_s3_bucket.s3bucket]
 }
