@@ -1,3 +1,13 @@
+data "azurerm_storage_accounts" "flowlogs" {
+resource_group_name = "your-resource-group-name"
+
+  filter {
+    name   = "name"
+    values = ["*${var.azure_subscription_id}*"] # Use * as wildcard
+  }
+}
+
+
 module "azure_subscription_dev" {
   source                 = "illumio/cloudsecure/illumio//modules/azure_subscription"
   version                = "1.5.1"
@@ -17,7 +27,7 @@ module "azure_flow_logs_storage_accounts" {
   storage_accounts = [
     {
       name                = azurerm_storage_account.flowlogs.name
-      resource_group_name = azurerm_resource_group.rg.name
+      resource_group_name = "testdrive"
     },
   ]
 
