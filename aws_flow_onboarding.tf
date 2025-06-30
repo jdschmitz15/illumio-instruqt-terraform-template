@@ -1,3 +1,7 @@
+data "aws_iam_role" "example" {
+  name = "IllumioCloudIntegrationRole"
+}
+
 module "aws_account_dev" {
   source  = "illumio/cloudsecure/illumio//modules/aws_account"
   version = "1.5.1"
