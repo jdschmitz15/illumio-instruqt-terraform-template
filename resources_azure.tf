@@ -113,6 +113,7 @@ resource "azurerm_linux_virtual_machine" "ticketing-jump01" {
   network_interface_ids = [azurerm_network_interface.nic-C.id]
   size                  = "Standard_B1s"
   disable_password_authentication = false
+  
 
   os_disk {
     name                 = "ticketing-jump01"
