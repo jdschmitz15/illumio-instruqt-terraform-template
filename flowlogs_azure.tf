@@ -15,7 +15,7 @@ resource "random_string" "random" {
 resource "azurerm_storage_account" "flowlogs" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  name                = substr("testdrive${replace(var.azure_subscription_id, "-", "")}", 0, 24)
+  name                = "testdrive-${split("@",var.account_id)[0]}"
 
   account_tier              = "Standard"
   account_kind              = "StorageV2"
