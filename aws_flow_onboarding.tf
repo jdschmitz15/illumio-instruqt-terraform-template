@@ -17,6 +17,6 @@ module "aws_flow_logs_s3_buckets" {
   version        = "1.5.1"
   role_id        = data.aws_iam_role.illumio.id
   s3_bucket_arns = [
-    aws_s3_bucket.s3bucket.arn
+    aws_s3_bucket.s3bucket.arn,
   ]
 }
