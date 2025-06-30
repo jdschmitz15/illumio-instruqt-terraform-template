@@ -20,4 +20,9 @@ module "azure_flow_logs_storage_accounts" {
       resource_group_name = azurerm_resource_group.rg.name
     },
   ]
+
+  depends_on = [
+    azurerm_storage_account.flowlogs, 
+    azurerm_resource_group.rg
+      ]
 }
