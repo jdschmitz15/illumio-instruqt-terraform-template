@@ -1,6 +1,6 @@
 
 resource "azurerm_network_watcher" "NetWatcher" {
-  name                = "NetworkWatcher_westus"
+  name                = "NetworkWatche${replace(split("@", var.account_id)[0], "+", "")}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 }
