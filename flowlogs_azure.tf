@@ -8,7 +8,7 @@ resource "azurerm_network_watcher" "NetWatcher" {
 resource "random_string" "random" {
   length  = 8
   lower   = true
-  numeric = false
+  numeric = true
   special = false
   upper   = false
 }
