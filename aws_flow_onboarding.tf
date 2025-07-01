@@ -1,6 +1,6 @@
 
 
-module "aws_account_dev" {
+module "aws_account_flowlogs" {
   source  = "illumio/cloudsecure/illumio//modules/aws_account"
   version = "1.5.1"
   name    = "Test Account"

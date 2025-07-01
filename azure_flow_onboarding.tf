@@ -1,4 +1,4 @@
-module "azure_subscription_dev" {
+module "azure_subscription_flowlogs" {
   source                 = "illumio/cloudsecure/illumio//modules/azure_subscription"
   version                = "1.5.1"
   name                   = "Test Azure Subscription"
