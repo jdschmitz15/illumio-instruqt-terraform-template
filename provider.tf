@@ -5,6 +5,10 @@ terraform {
       source  = "azure/azapi"
       version = "~>1.5"
     }
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
     # azurerm = {
     #   source  = "hashicorp/azurerm"
     #   version = "~>2.0"
