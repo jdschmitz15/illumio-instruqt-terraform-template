@@ -4,5 +4,5 @@ module "azure_subscription" {
   name                   = "Instruqt Azure Subscription"
   mode                   = "ReadWrite"
   #iam_name_prefix        = var.account_id
-  iam_name_prefix       = random_string.random
+  iam_name_prefix       = random_string.random.id
 }
