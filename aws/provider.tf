@@ -1,18 +1,10 @@
 terraform {
   required_version = ">=0.12"
   required_providers {
-    azapi = {
-      source  = "azure/azapi"
-      version = "~>1.5"
-    }
     aws = {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
-    # azurerm = {
-    #   source  = "hashicorp/azurerm"
-    #   version = "~>2.0"
-    # }
     random = {
       source  = "hashicorp/random"
       version = "~>3.0"
@@ -31,12 +23,4 @@ provider "illumio-cloudsecure" {
 
 provider "aws" {
   region = "us-east-1" 
-}
-
-provider "azurerm" {
-  features {}
-  subscription_id = var.azure_subscription_id
-}
-
-provider "azuread" {
 }
