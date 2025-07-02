@@ -1,4 +1,4 @@
-module "aws_account_onboarding" {
+module "aws_account_dev" {
   source  = "illumio/cloudsecure/illumio//modules/aws_account"
   version = "1.5.1"
   name    = "Instruqt AWS Account"
