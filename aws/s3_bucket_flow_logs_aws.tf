@@ -1,8 +1,14 @@
+resource "random_string" "random" {
+  length  = 8
+  lower   = true
+  numeric = true
+  special = false
+  upper   = false
+}
 resource "aws_s3_bucket" "s3bucket" {
-  bucket = "us-east-1-${data.aws_caller_identity.current.account_id}"
+  bucket = "us-east-1-${random_string.random.id}-flow-logs"
 }
 
-data "aws_caller_identity" "current" {}
 
 resource "aws_flow_log" "flowlogs1" {
   vpc_id            = aws_vpc.vpc1.id
