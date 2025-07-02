@@ -7,6 +7,7 @@ resource "random_string" "random" {
 }
 resource "aws_s3_bucket" "s3bucket" {
   bucket = "us-east-1-${random_string.random.id}-flow-logs"
+  force_destroy = true
 }
 
 
