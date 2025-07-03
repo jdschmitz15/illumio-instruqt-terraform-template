@@ -34,3 +34,12 @@ variable "subnet_availability_zone" {
   type        = string
   default     = "us-east-1a"
 }
+
+variable "account_id" {
+  type        = string
+  description = "The account ID for the CloudSecure configuration."
+  validation {
+    condition     = length(var.account_id) > 0
+    error_message = "The account_id value must not be empty."
+  }
+}

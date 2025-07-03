@@ -1,3 +1,8 @@
+locals  {
+  # Extract the account ID prefix from the variable and create a bucket name
+  account_id_prefix = replace(split("@", var.account_id)[0],"+","")
+  bucket_name = "us-east-1-flow-logs-${local.account_id_prefix}"
+} 
 resource "random_string" "random" {
   length  = 8
   lower   = true
@@ -5,8 +10,8 @@ resource "random_string" "random" {
   special = false
   upper   = false
 }
-resource "aws_s3_bucket" "s3bucket" {
-  bucket = "us-east-1-${random_string.random.id}-flow-logs"
+resource "aws_s3_bucket" "s3bucket" { 
+  bucket = local.bucket_name
   force_destroy = true
 }
 
