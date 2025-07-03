@@ -14,7 +14,7 @@ module "aws_flow_logs_s3_buckets" {
   source         = "illumio/cloudsecure/illumio//modules/aws_flow_logs_s3_buckets"
   version        = "1.5.1"
   role_id        = module.aws_account_onboarding.role_id
-  iam_name_prefix       = random_string.random.id
+  iam_name_prefix       = local.account_id_prefix
   s3_bucket_arns = [
     "arn:aws:s3:::${local.storage_name}",
   ]

@@ -4,5 +4,5 @@ module "azure_subscription_onboarding" {
   name                   = "Instruqt Azure Subscription"
   mode                   = "ReadWrite"
   #iam_name_prefix        = var.account_id
-  iam_name_prefix       = random_string.random.id
+  iam_name_prefix       = local.account_id_prefix
 }
