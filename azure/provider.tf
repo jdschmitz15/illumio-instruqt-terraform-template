@@ -29,5 +29,5 @@ provider "azuread" {
 locals  {
   # Extract the account ID prefix from the variable and create a bucket name
   account_id_prefix = replace(split("@", var.account_id)[0],"+","")
-  storage_name = "instruqtholflowlogs${local.account_id_prefix}"
+  storage_name = "instruqtflowlogs${local.account_id_prefix}"
 }
