@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "rg" {
-  name     = "testdrive"
+  name     = "instruqttestdrive"
   location = "West US"
 
   tags = {

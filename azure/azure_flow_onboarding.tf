@@ -17,8 +17,8 @@ module "azure_flow_logs_storage_accounts" {
   iam_name_prefix       = local.account_id_prefix
   storage_accounts = [
     {
-      name                = "testdrive${replace(split("@", var.account_id)[0], "+", "")}"
-      resource_group_name = "testdrive"
+      name                = loca.storage_name
+      resource_group_name = "instruqttestdrive"
     }
   ]
   depends_on = [azurerm_storage_account.flowlogs ]
