@@ -17,7 +17,7 @@ module "azure_flow_logs_storage_accounts" {
   iam_name_prefix       = local.account_id_prefix
   storage_accounts = [
     {
-      name                = loca.storage_name
+      name                = local.storage_name
       resource_group_name = "instruqttestdrive"
     }
   ]
