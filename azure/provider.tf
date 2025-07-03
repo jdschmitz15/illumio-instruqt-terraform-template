@@ -4,11 +4,7 @@ terraform {
     azapi = {
       source  = "azure/azapi"
       version = "~>1.5"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = "~>3.0"
-    }   
+    }  
     illumio-cloudsecure = {
       source  = "illumio/illumio-cloudsecure"
       version = ">= 1.0.11"
@@ -28,4 +24,10 @@ provider "azurerm" {
 }
 
 provider "azuread" {
+}
+
+locals  {
+  # Extract the account ID prefix from the variable and create a bucket name
+  account_id_prefix = replace(split("@", var.account_id)[0],"+","")
+  storage_name = "instruqt-hol-flow-logs-${local.account_id_prefix}"
 }
