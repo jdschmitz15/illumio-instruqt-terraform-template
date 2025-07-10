@@ -21,6 +21,16 @@ provider "aws" {
   region = "us-east-1" 
 }
 
+# # Generate random text for a unique storage account name
+resource "random_id" "random_id" {
+  keepers = {
+    # Generate a new ID only when a new resource group is defined
+    resource_group = azurerm_resource_group.rg.name
+  }
+
+  byte_length = 8
+}
+
 locals  {
   # Extract the account ID prefix from the variable and create a bucket name
   account_id_prefix = replace(split("@", var.account_id)[0],"+","")
