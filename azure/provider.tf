@@ -40,5 +40,6 @@ resource "random_id" "random_id" {
 locals  {
   # Extract the account ID prefix from the variable and create a bucket name
   account_id_prefix = replace(split("@", var.account_id)[0],"+","")
-  storage_name = "instruqtsa${local.account_id_prefix}${random_id.random_id.hex}"
+  #storage_name = "instruqtsa${local.account_id_prefix}${random_id.random_id.hex}"
+  storage_name = "instruqtsa${local.account_id_prefix}"
 }
