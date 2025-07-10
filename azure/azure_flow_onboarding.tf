@@ -1,14 +1,3 @@
-# module "azure_subscription_flowlogs" {
-#   source                 = "illumio/cloudsecure/illumio//modules/azure_subscription"
-#   version                = "1.5.1"
-#   name                   = "Test Azure Subscription"
-#   mode                   = "ReadWrite"
-#   iam_name_prefix       = random_string.random.id
-#   tags = [
-#     "Environment=Dev",
-#     "Owner=John Doe"
-#   ]
-# }
 
 module "azure_flow_logs_storage_accounts" {
   source                      = "illumio/cloudsecure/illumio//modules/azure_flow_logs_storage_accounts"
