@@ -21,11 +21,6 @@ provider "aws" {
   region = "us-east-1" 
 }
 
-# # Generate random text for a unique storage account name
-resource "random_id" "random_id" {
-
-  byte_length = 8
-}
 
 locals  {
   # Extract the account ID prefix from the variable and create a bucket name
