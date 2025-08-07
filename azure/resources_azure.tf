@@ -66,14 +66,31 @@ resource "azurerm_linux_virtual_machine" "ticketing-web01-dev" {
     compliance = "pci"
   }
 }
-resource "azurerm_network_watcher_flow_log" "nw_flowlogs_ticketing-web01-dev" {
+# resource "azurerm_network_watcher_flow_log" "nw_flowlogs_ticketing-web01-dev" {
+#   network_watcher_name = azurerm_network_watcher.NetWatcher.name
+#   //network_watcher_name = "NetworkWatcher_westus"
+#   resource_group_name  = azurerm_resource_group.rg.name
+#   //resource_group_name = "NetworkWatcherRG"
+#   name                 = "nsg-flow-logs-ticketing-web01-dev"
+
+#   target_resource_id = azurerm_network_security_group.nsg-ticketing-web01-dev.id
+#   storage_account_id        = azurerm_storage_account.flowlogs.id
+#   enabled                   = true
+#   version = 2
+
+#   retention_policy {
+#     enabled = true
+#     days    = 1
+#   }
+# }
+resource "azurerm_network_watcher_flow_log" "vnetA_flowlogs" {
   network_watcher_name = azurerm_network_watcher.NetWatcher.name
   //network_watcher_name = "NetworkWatcher_westus"
   resource_group_name  = azurerm_resource_group.rg.name
   //resource_group_name = "NetworkWatcherRG"
   name                 = "nsg-flow-logs-ticketing-web01-dev"
 
-  target_resource_id = azurerm_network_security_group.nsg-ticketing-web01-dev.id
+  target_resource_id        = azurerm_virtual_network.vnetA.id
   storage_account_id        = azurerm_storage_account.flowlogs.id
   enabled                   = true
   version = 2
@@ -83,6 +100,25 @@ resource "azurerm_network_watcher_flow_log" "nw_flowlogs_ticketing-web01-dev" {
     days    = 1
   }
 }
+
+resource "azurerm_network_watcher_flow_log" "vnetB_flowlogs" {
+  network_watcher_name = azurerm_network_watcher.NetWatcher.name
+  //network_watcher_name = "NetworkWatcher_westus"
+  resource_group_name  = azurerm_resource_group.rg.name
+  //resource_group_name = "NetworkWatcherRG"
+  name                 = "nsg-flow-logs-ticketing-web01-dev"
+
+  target_resource_id        = azurerm_virtual_network.vnetB.id
+  storage_account_id        = azurerm_storage_account.flowlogs.id
+  enabled                   = true
+  version = 2
+
+  retention_policy {
+    enabled = true
+    days    = 1
+  }
+}
+
 resource "azurerm_network_interface" "nic-A" {
   name                = "nic-A"
   location            = azurerm_resource_group.rg.location
@@ -148,23 +184,23 @@ resource "azurerm_linux_virtual_machine" "ticketing-jump01" {
     compliance = "pci"
   }
 }
-resource "azurerm_network_watcher_flow_log" "nw_flowlogs_ticketing-jump01" {
-  network_watcher_name = azurerm_network_watcher.NetWatcher.name
-  //network_watcher_name = "NetworkWatcher_westus"
-  resource_group_name  = azurerm_resource_group.rg.name
-  //resource_group_name = "NetworkWatcherRG"
-  name                 = "nsg-flow-logs-ticketing-jump01"
+# resource "azurerm_network_watcher_flow_log" "nw_flowlogs_ticketing-jump01" {
+#   network_watcher_name = azurerm_network_watcher.NetWatcher.name
+#   //network_watcher_name = "NetworkWatcher_westus"
+#   resource_group_name  = azurerm_resource_group.rg.name
+#   //resource_group_name = "NetworkWatcherRG"
+#   name                 = "nsg-flow-logs-ticketing-jump01"
 
-  target_resource_id = azurerm_network_security_group.nsg-ticketing-jump01.id
-  storage_account_id        = azurerm_storage_account.flowlogs.id
-  enabled                   = true
-  version = 2
+#   target_resource_id = azurerm_network_security_group.nsg-ticketing-jump01.id
+#   storage_account_id        = azurerm_storage_account.flowlogs.id
+#   enabled                   = true
+#   version = 2
 
-  retention_policy {
-    enabled = true
-    days    = 1
-  }
-}
+#   retention_policy {
+#     enabled = true
+#     days    = 1
+#   }
+# }
 resource "azurerm_network_interface" "nic-C" {
   name                = "nic-C"
   location            = azurerm_resource_group.rg.location
@@ -231,23 +267,23 @@ resource "azurerm_linux_virtual_machine" "ticketing-web01-prod" {
     compliance = "pci"
   }
 }
-resource "azurerm_network_watcher_flow_log" "nw_flowlogs_ticketing-web01-prod" {
-  network_watcher_name = azurerm_network_watcher.NetWatcher.name
-  //network_watcher_name = "NetworkWatcher_westus"
-  resource_group_name  = azurerm_resource_group.rg.name
-  //resource_group_name = "NetworkWatcherRG"
-  name                 = "nsg-flow-logs-ticketing-web01-prod"
+# resource "azurerm_network_watcher_flow_log" "nw_flowlogs_ticketing-web01-prod" {
+#   network_watcher_name = azurerm_network_watcher.NetWatcher.name
+#   //network_watcher_name = "NetworkWatcher_westus"
+#   resource_group_name  = azurerm_resource_group.rg.name
+#   //resource_group_name = "NetworkWatcherRG"
+#   name                 = "nsg-flow-logs-ticketing-web01-prod"
 
-  target_resource_id = azurerm_network_security_group.nsg-ticketing-web01-prod.id
-  storage_account_id        = azurerm_storage_account.flowlogs.id
-  enabled                   = true
-  version = 2
+#   target_resource_id = azurerm_network_security_group.nsg-ticketing-web01-prod.id
+#   storage_account_id        = azurerm_storage_account.flowlogs.id
+#   enabled                   = true
+#   version = 2
 
-  retention_policy {
-    enabled = true
-    days    = 1
-  }
-}
+#   retention_policy {
+#     enabled = true
+#     days    = 1
+#   }
+# }
 resource "azurerm_network_interface" "nic-B" {
   name                = "nic-B"
   location            = azurerm_resource_group.rg.location
@@ -312,21 +348,21 @@ resource "azurerm_linux_virtual_machine" "ticketing-proc01-prod" {
     compliance = "pci"
   }
 }
-resource "azurerm_network_watcher_flow_log" "nw_flowlogs_ticketing-proc01-prod" {
-  network_watcher_name = azurerm_network_watcher.NetWatcher.name
-  resource_group_name  = azurerm_resource_group.rg.name
-  name                 = "nsg-flow-logs-ticketing-proc01-prod"
+# resource "azurerm_network_watcher_flow_log" "nw_flowlogs_ticketing-proc01-prod" {
+#   network_watcher_name = azurerm_network_watcher.NetWatcher.name
+#   resource_group_name  = azurerm_resource_group.rg.name
+#   name                 = "nsg-flow-logs-ticketing-proc01-prod"
 
-  target_resource_id = azurerm_network_security_group.nsg-ticketing-proc01-prod.id
-  storage_account_id        = azurerm_storage_account.flowlogs.id
-  enabled                   = true
-  version = 2
+#   target_resource_id = azurerm_network_security_group.nsg-ticketing-proc01-prod.id
+#   storage_account_id        = azurerm_storage_account.flowlogs.id
+#   enabled                   = true
+#   version = 2
 
-  retention_policy {
-    enabled = true
-    days    = 1
-  }
-}
+#   retention_policy {
+#     enabled = true
+#     days    = 1
+#   }
+# }
 resource "azurerm_network_interface" "nic-D" {
   name                = "nic-D"
   location            = azurerm_resource_group.rg.location
