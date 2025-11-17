@@ -99,7 +99,9 @@ resource "azurerm_network_watcher_flow_log" "vnetA_flowlogs" {
     enabled = true
     days    = 1
   }
+  depends_on = [ azurerm_network_watcher.NetWatcher,azurerm_resource_group.rg,azurerm_network_security_group.nsg-ticketing-web01-prod,azurerm_network_security_group.nsg-ticketing-web01-dev,azurerm_network_security_group.nsg-ticketing-jump01,azurerm_network_security_group.nsg-ticketing-proc01-prod]  
 }
+
 
 resource "azurerm_network_watcher_flow_log" "vnetB_flowlogs" {
   network_watcher_name = azurerm_network_watcher.NetWatcher.name
@@ -117,6 +119,7 @@ resource "azurerm_network_watcher_flow_log" "vnetB_flowlogs" {
     enabled = true
     days    = 1
   }
+  depends_on = [ azurerm_network_watcher.NetWatcher,azurerm_resource_group.rg,azurerm_network_security_group.nsg-ticketing-web01-prod,azurerm_network_security_group.nsg-ticketing-web01-dev,azurerm_network_security_group.nsg-ticketing-jump01,azurerm_network_security_group.nsg-ticketing-proc01-prod]  
 }
 
 resource "azurerm_network_interface" "nic-A" {
