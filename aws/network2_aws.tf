@@ -19,7 +19,7 @@ resource "aws_subnet" "staging_subnet" {
   }
 }
 
-#Peer VPC1 and VPC2
+#Peer VPC2
 resource "aws_vpc_peering_connection" "vpc1-to-vpc2-peering" {
   peer_vpc_id   = aws_vpc.vpc2.id
   vpc_id        = aws_vpc.vpc1.id
