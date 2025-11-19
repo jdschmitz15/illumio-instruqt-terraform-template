@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Illumoi SaaS instance</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/fontawesome/css/all.min.css" />
+</head>
+
+<body>
+    <div class="accountList">
+        {{ if ne (getenv "AUTOACCOUNT_MAGICURL") "" }}
+        <div class="magicurl">
+            <div class="card">
+                <div class="header">
+                    <div class="logo">
+                        <img alt="icon" src="/assets/azure.svg">
+                    </div>
+                    <div class="title">
+                        <h2>ILLUMIO SAAS URL</h2>
+                        <p>TENANT</p>
+                    </div>
+                </div>
+                <div class="properties">
+                    <div class="key">Login URL:</div>
+                    <div class="value">
+                        <a href="{{ getenv "AUTOACCOUNT_MAGICURL" }} target="_blank">Tenant SaaS URL</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ end }}
+
+        
+    </div>
+
+    <script>
+        function copyToClipboard(textToCopy) {
+            var inputHelper = document.createElement("input");
+            inputHelper.setAttribute("value", textToCopy);
+            document.body.appendChild(inputHelper);
+            inputHelper.select();
+            document.execCommand("copy");
+            document.body.removeChild(inputHelper);
+        }
+
+        var copyElementContents = function() {
+            elem = this;
+            copyToClipboard(elem.innerText.trim());
+            elem.setAttribute("data-copied", "");
+            setTimeout(function() {
+                elem.removeAttribute("data-copied");
+            }, 1500);
+        };
+
+        var copyElements = document.querySelectorAll('[data-copyable]');
+        for (var i = 0; i < copyElements.length; i++) {
+            copyElements[i].addEventListener('click', copyElementContents, false);
+        }
+    </script>
+</body>
+</html>
