@@ -12,6 +12,7 @@ resource "aws_vpc" "vpc2" {
 resource "aws_subnet" "staging_subnet" {
   vpc_id            = aws_vpc.vpc2.id
   cidr_block        = "10.10.4.0/24"
+  map_public_ip_on_launch = true
   availability_zone = "us-east-1a" # Specify your availability zone
 
   tags = {
