@@ -19,7 +19,9 @@ resource "azurerm_kubernetes_cluster" "aks" {
     ssh_key { key_data = "" }
   }
   sku_tier = "Free"
-  role_based_access_control { enabled = true }
+  role_based_access_control {
+    enabled = true
+  }
   network_profile { network_plugin = "kubenet" }
 }
 
@@ -29,18 +31,15 @@ provider "kubernetes" {
   client_certificate     = base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config[0].client_certificate)
   client_key             = base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config[0].client_key)
   cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config[0].cluster_ca_certificate)
-  load_config_file = false
 }
 
 provider "helm" {
   alias = "aks"
-  kubernetes {
-    host                   = azurerm_kubernetes_cluster.aks.kube_admin_config[0].host
-    client_certificate     = base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config[0].client_certificate)
-    client_key             = base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config[0].client_key)
-    cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config[0].cluster_ca_certificate)
-    load_config_file       = false
-  }
+  host                   = azurerm_kubernetes_cluster.aks.kube_admin_config[0].host
+  client_certificate     = base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config[0].client_certificate)
+  client_key             = base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config[0].client_key)
+  cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config[0].cluster_ca_certificate)
+  load_config_file       = false
 }
 
 resource "helm_release" "cilium_aks" {
