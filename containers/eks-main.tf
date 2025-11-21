@@ -1,49 +1,95 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = ">= 20.0.0"
-  cluster_name    = var.eks_cluster_name
-  cluster_version = "1.28"
-  manage_vpc = true
-  node_groups = {
+  version = "~> 20.0"
+
+  cluster_name    = var.cluster_name
+  cluster_version = "1.30"
+
+  vpc_id     = module.vpc.vpc_id
+  subnet_ids = module.vpc.private_subnets
+
+  enable_cluster_creator_admin_permissions = true
+
+  # Disable AWS VPC CNI (Cilium takes over)
+  cluster_addons = {
+    coredns   = { most_recent = true }
+    kube-proxy = { most_recent = true }
+  }
+
+  eks_managed_node_groups = {
     default = {
-      desired_capacity = var.eks_node_count
-      max_capacity     = var.eks_node_count + 1
-      min_capacity     = 1
-      instance_type    = var.eks_node_group_instance_type
+      instance_types = ["t3.large"]
+      desired_size   = 2
+      min_size       = 2
+      max_size       = 4
     }
   }
 }
-
-data "aws_eks_cluster" "cluster" { name = module.eks.cluster_id }
-data "aws_eks_cluster_auth" "cluster" { name = module.eks.cluster_id }
-
 provider "kubernetes" {
-  alias                  = "eks"
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
-  load_config_file       = false
-}
+  host                   = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
 
-provider "helm" {
-  alias = "eks"
-  kubernetes {
-    host                   = data.aws_eks_cluster.cluster.endpoint
-    cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
-    token                  = data.aws_eks_cluster_auth.cluster.token
-    load_config_file       = false
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    command     = "aws"
+    args        = [
+      "eks",
+      "get-token",
+      "--cluster-name", module.eks.cluster_name,
+      "--region", var.aws_region,
+    ]
   }
 }
 
-resource "helm_release" "cilium_eks" {
-  provider       = helm.eks
-  name           = "cilium"
-  repository     = "https://helm.cilium.io/"
-  chart          = "cilium"
-  create_namespace = true
-  namespace      = "kube-system"
-  values = [<<EOF
-kubeProxyReplacement: "partial"
-EOF
+provider "helm" {
+  host                   = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    command     = "aws"
+    args = [
+      "eks",
+      "get-token",
+      "--cluster-name", module.eks.cluster_name,
+      "--region", var.aws_region
+    ]
+  }
+}
+resource "helm_release" "cilium" {
+  name       = "cilium"
+  repository = "https://helm.cilium.io/"
+  chart      = "cilium"
+  version    = "1.16.1"
+  namespace  = "kube-system"
+
+  values = [
+    yamlencode({
+      eni = {
+        enabled = true
+      }
+      ipam = {
+        mode = "eni"
+      }
+      hubble = {
+        enabled = true
+        relay = {
+          enabled = true
+        }
+        ui = {
+          enabled = true
+        }
+        metrics = {
+          enabled = [
+            "dns",
+            "drop",
+            "tcp",
+            "flow",
+            "icmp",
+            "http"
+          ]
+        }
+      }
+    })
   ]
 }
