@@ -26,7 +26,7 @@ provider "aws" {
 // filepath: /Users/jeff.schmitz/go/src/github.com/jdschmitz15/illumio-instruqt-terraform-template/aws/ssh_key.tf
 resource "aws_key_pair" "newtemp" {
   key_name   = "newtempkey"
-  public_key = file("/Users/jeff.schmitz/.ssh/newtempkey.pub")
+  public_key = file("/Users/jeff.schmitz/.ssh/new-tempkey.pub")
 }
 
 locals  {
