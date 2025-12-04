@@ -30,13 +30,13 @@ resource "azurerm_linux_virtual_machine" "ticketing-web01-dev" {
   location              = azurerm_resource_group.rg.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.nic-A.id]
-  size                  = "Standard_A1_v2"
+  size                  = "Standard_A1_v2" 
   disable_password_authentication = false
 
   os_disk {
     name                 = "ticketing-web01-dev"
     caching              = "ReadWrite"
-    storage_account_type = "Premium_LRS"
+    storage_account_type = "Standard_LRS"
   }
 
   source_image_reference {
@@ -157,7 +157,7 @@ resource "azurerm_linux_virtual_machine" "ticketing-jump01" {
   os_disk {
     name                 = "ticketing-jump01"
     caching              = "ReadWrite"
-    storage_account_type = "Premium_LRS"
+    storage_account_type = "Standard_LRS"
   }
 
   source_image_reference {
@@ -239,7 +239,7 @@ resource "azurerm_linux_virtual_machine" "ticketing-web01-prod" {
   os_disk {
     name                 = "ticketing-web01-prod"
     caching              = "ReadWrite"
-    storage_account_type = "Premium_LRS"
+    storage_account_type = "Standard_LRS"
   }
   
   source_image_reference {
@@ -321,7 +321,7 @@ resource "azurerm_linux_virtual_machine" "ticketing-proc01-prod" {
   os_disk {
     name                 = "ticketing-proc01-prod"
     caching              = "ReadWrite"
-    storage_account_type = "Premium_LRS"
+    storage_account_type = "Standard_LRS"
   }
   
   source_image_reference {
