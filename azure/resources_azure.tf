@@ -30,7 +30,7 @@ resource "azurerm_linux_virtual_machine" "ticketing-web01-dev" {
   location              = azurerm_resource_group.rg.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.nic-A.id]
-  size                  = "Standard_B2s_v2" 
+  size                  = "Standard_B2s" 
   #zone                  = "2"
   disable_password_authentication = false
 
@@ -43,7 +43,7 @@ resource "azurerm_linux_virtual_machine" "ticketing-web01-dev" {
   source_image_reference {
     publisher = "Canonical"
     offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts-gen2"
+    sku       = "22_04-lts"
     version   = "latest"
   }
   custom_data = "IyEvYmluL2Jhc2gK4oCLCnN1ZG8geXVtIGluc3RhbGwgdGVsbmV0IC15CuKAiwppZiBbIGAvdXNyL2Jpbi9ob3N0bmFtZWAgPT0gIlRpY2tldGluZy1EZXYtMDEiIF0KdGhlbiAKCXN1ZG8geXVtIGluc3RhbGwgdGVsbmV0IC15CiAgICAgICAgKGNyb250YWIgLWwgMj4vZGV2L251bGwgfHwgZWNobyAiIjsgZWNobyAiKi81ICogKiAqICogIHRlbG5ldCAxMC41MC4xLjUgNTAwMCA+PiAvdG1wL1Byb2MubG9nIikgfCBjcm9udGFiIC0KICAgICAgICAoY3JvbnRhYiAtbCAyPi9kZXYvbnVsbCB8fCBlY2hvICIiOyBlY2hvICIqLzUgKiAqICogKiAgdGVsbmV0IDEwLjUwLjEuNSAyMiA+PiAvdG1wL1Byb2MubG9nIikgfCBjcm9udGFiIC0K4oCLCmZp"
