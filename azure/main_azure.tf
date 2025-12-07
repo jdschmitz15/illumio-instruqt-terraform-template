@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "rg" {
   name     = "instruqttestdrive"
-  location = "East US"
+  location = "West US"
 
   tags = {
     environment = "Production"
