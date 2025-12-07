@@ -73,7 +73,7 @@ resource "azurerm_network_watcher_flow_log" "vnetA_flowlogs" {
   //network_watcher_name = "NetworkWatcher_westus"
   resource_group_name  = azurerm_resource_group.rg.name
   //resource_group_name = "NetworkWatcherRG"
-  name                 = "nsg-flow-logs-ticketing-web01-dev"
+  name                 = "vnetA-flow-logs"
 
   target_resource_id        = azurerm_virtual_network.vnetA.id
   storage_account_id        = azurerm_storage_account.flowlogs.id
@@ -93,7 +93,7 @@ resource "azurerm_network_watcher_flow_log" "vnetB_flowlogs" {
   //network_watcher_name = "NetworkWatcher_westus"
   resource_group_name  = azurerm_resource_group.rg.name
   //resource_group_name = "NetworkWatcherRG"
-  name                 = "nsg-flow-logs-ticketing-web01-dev"
+  name                 = "vnetB-flow-logs"
 
   target_resource_id        = azurerm_virtual_network.vnetB.id
   storage_account_id        = azurerm_storage_account.flowlogs.id
