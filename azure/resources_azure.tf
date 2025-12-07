@@ -20,54 +20,6 @@ resource "azurerm_storage_account" "my_storage_account" {
   account_replication_type = "LRS"
 }
 
-
-
-
-# Create virtual machines
-
-resource "azurerm_linux_virtual_machine" "ticketing-web01-dev" {
-  name                  = "ticketing-web01-dev"
-  location              = azurerm_resource_group.rg.location
-  resource_group_name   = azurerm_resource_group.rg.name
-  network_interface_ids = [azurerm_network_interface.nic-A.id]
-  size                  = "Standard_B2pts_v2" 
-  #zone                  = "2"
-  disable_password_authentication = false
-
-  os_disk {
-    name                 = "ticketing-web01-dev"
-    caching              = "ReadWrite"
-    storage_account_type = "Standard_LRS"
-  }
-
-  source_image_reference {
-    publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts-arm64"
-    version   = "latest"
-  }
-  custom_data = "IyEvYmluL2Jhc2gK4oCLCnN1ZG8geXVtIGluc3RhbGwgdGVsbmV0IC15CuKAiwppZiBbIGAvdXNyL2Jpbi9ob3N0bmFtZWAgPT0gIlRpY2tldGluZy1EZXYtMDEiIF0KdGhlbiAKCXN1ZG8geXVtIGluc3RhbGwgdGVsbmV0IC15CiAgICAgICAgKGNyb250YWIgLWwgMj4vZGV2L251bGwgfHwgZWNobyAiIjsgZWNobyAiKi81ICogKiAqICogIHRlbG5ldCAxMC41MC4xLjUgNTAwMCA+PiAvdG1wL1Byb2MubG9nIikgfCBjcm9udGFiIC0KICAgICAgICAoY3JvbnRhYiAtbCAyPi9kZXYvbnVsbCB8fCBlY2hvICIiOyBlY2hvICIqLzUgKiAqICogKiAgdGVsbmV0IDEwLjUwLjEuNSAyMiA+PiAvdG1wL1Byb2MubG9nIikgfCBjcm9udGFiIC0K4oCLCmZp"
-  computer_name  = "ticketing-web01-dev"
-  admin_username = "bob"
-  admin_password = "Illumio4321!!"
-/*
-  admin_ssh_key {
-    username   = "bob"
-    public_key = azapi_resource_action.ssh_public_key_gen.output.publicKey
-  }
-*/
-  boot_diagnostics {
-    storage_account_uri = azurerm_storage_account.my_storage_account.primary_blob_endpoint
-  }
-  tags = {
-    role = "web"
-    dept = "222"
-    app = "ticketing"
-    env = "dev"
-    compliance = "pci"
-  }
-}
-
 resource "azurerm_network_watcher_flow_log" "vnetA_flowlogs" {
   network_watcher_name = azurerm_network_watcher.NetWatcher.name
   //network_watcher_name = "NetworkWatcher_westus"
@@ -105,6 +57,52 @@ resource "azurerm_network_watcher_flow_log" "vnetB_flowlogs" {
     days    = 1
   }
   depends_on = [ azurerm_network_watcher.NetWatcher,azurerm_resource_group.rg,azurerm_network_security_group.nsg-ticketing-web01-prod,azurerm_network_security_group.nsg-ticketing-web01-dev,azurerm_network_security_group.nsg-ticketing-jump01,azurerm_network_security_group.nsg-ticketing-proc01-prod]  
+}
+
+
+# Create virtual machines
+
+resource "azurerm_linux_virtual_machine" "ticketing-web01-dev" {
+  name                  = "ticketing-web01-dev"
+  location              = azurerm_resource_group.rg.location
+  resource_group_name   = azurerm_resource_group.rg.name
+  network_interface_ids = [azurerm_network_interface.nic-A.id]
+  size                  = "Standard_B2pts_v2" 
+  #zone                  = "2"
+  disable_password_authentication = false
+
+  os_disk {
+    name                 = "ticketing-web01-dev"
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts-arm64"
+    version   = "latest"
+  }
+  custom_data = "IyEvYmluL2Jhc2gK4oCLCnN1ZG8geXVtIGluc3RhbGwgdGVsbmV0IC15CuKAiwppZiBbIGAvdXNyL2Jpbi9ob3N0bmFtZWAgPT0gIlRpY2tldGluZy1EZXYtMDEiIF0KdGhlbiAKCXN1ZG8geXVtIGluc3RhbGwgdGVsbmV0IC15CiAgICAgICAgKGNyb250YWIgLWwgMj4vZGV2L251bGwgfHwgZWNobyAiIjsgZWNobyAiKi81ICogKiAqICogIHRlbG5ldCAxMC41MC4xLjUgNTAwMCA+PiAvdG1wL1Byb2MubG9nIikgfCBjcm9udGFiIC0KICAgICAgICAoY3JvbnRhYiAtbCAyPi9kZXYvbnVsbCB8fCBlY2hvICIiOyBlY2hvICIqLzUgKiAqICogKiAgdGVsbmV0IDEwLjUwLjEuNSAyMiA+PiAvdG1wL1Byb2MubG9nIikgfCBjcm9udGFiIC0K4oCLCmZp"
+  computer_name  = "ticketing-web01-dev"
+  admin_username = "arzuser"
+  admin_password = "Illumio4321!!"
+/*
+  admin_ssh_key {
+    username   = "bob"
+    public_key = azapi_resource_action.ssh_public_key_gen.output.publicKey
+  }
+*/
+  boot_diagnostics {
+    storage_account_uri = azurerm_storage_account.my_storage_account.primary_blob_endpoint
+  }
+  tags = {
+    role = "web"
+    dept = "222"
+    app = "ticketing"
+    env = "dev"
+    compliance = "pci"
+  }
 }
 
 resource "azurerm_network_interface" "nic-A" {
