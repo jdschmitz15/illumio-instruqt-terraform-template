@@ -37,7 +37,6 @@ resource "azurerm_linux_virtual_machine" "ticketing-web01-dev" {
     name                 = "ticketing-web01-dev"
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
-    disk_size_gb         = 10
   }
 
   source_image_reference {
