@@ -30,7 +30,7 @@ resource "azurerm_linux_virtual_machine" "ticketing-web01-dev" {
   location              = azurerm_resource_group.rg.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.nic-A.id]
-  size                  = "Standard_B1v2" 
+  size                  = "Standard_B2ats_v2" 
   disable_password_authentication = false
 
   os_disk {
@@ -135,7 +135,7 @@ resource "azurerm_linux_virtual_machine" "ticketing-jump01" {
   location              = azurerm_resource_group.rg.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.nic-C.id]
-  size                  = "Standard_B1v2"
+  size                  = "Standard_B2ats_v2"
   disable_password_authentication = false
   
 
@@ -203,7 +203,7 @@ resource "azurerm_linux_virtual_machine" "ticketing-web01-prod" {
   location              = azurerm_resource_group.rg.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.nic-B.id]
-  size                  = "Standard_B1v2"
+  size                  = "Standard_B2ats_v2"
   disable_password_authentication = false
 
   os_disk {
