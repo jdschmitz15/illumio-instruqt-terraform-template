@@ -6,12 +6,14 @@ resource "azurerm_virtual_network" "vnetA" {
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 }
+
 resource "azurerm_virtual_network" "vnetB" {
   name                = "vnetB"
   address_space       = ["192.168.2.0/24"]
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 }
+
 resource "azurerm_virtual_network_peering" "peerAtoB" {
   name                      = "peerAtoB"
   resource_group_name       = azurerm_resource_group.rg.name

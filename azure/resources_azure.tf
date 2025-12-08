@@ -1,16 +1,4 @@
 
-
-
-# # Generate random text for a unique storage account name
-# resource "random_id" "random_id" {
-#   keepers = {
-#     # Generate a new ID only when a new resource group is defined
-#     resource_group = azurerm_resource_group.rg.name
-#   }
-
-#   byte_length = 8
-# }
-
 # Create storage account for boot diagnostics
 resource "azurerm_storage_account" "my_storage_account" {
   name                     = "diag${random_id.random_id.hex}"
@@ -18,45 +6,6 @@ resource "azurerm_storage_account" "my_storage_account" {
   resource_group_name      = azurerm_resource_group.rg.name
   account_tier             = "Standard"
   account_replication_type = "LRS"
-}
-
-resource "azurerm_network_watcher_flow_log" "vnetA_flowlogs" {
-  network_watcher_name = azurerm_network_watcher.NetWatcher.name
-  //network_watcher_name = "NetworkWatcher_westus"
-  resource_group_name  = azurerm_resource_group.rg.name
-  //resource_group_name = "NetworkWatcherRG"
-  name                 = "vnetA-flow-logs"
-
-  target_resource_id        = azurerm_virtual_network.vnetA.id
-  storage_account_id        = azurerm_storage_account.flowlogs.id
-  enabled                   = true
-  version = 2
-
-  retention_policy {
-    enabled = true
-    days    = 1
-  }
-  depends_on = [ azurerm_network_watcher.NetWatcher,azurerm_resource_group.rg,azurerm_network_security_group.nsg-ticketing-web01-prod,azurerm_network_security_group.nsg-ticketing-web01-dev,azurerm_network_security_group.nsg-ticketing-jump01,azurerm_network_security_group.nsg-ticketing-proc01-prod]  
-}
-
-
-resource "azurerm_network_watcher_flow_log" "vnetB_flowlogs" {
-  network_watcher_name = azurerm_network_watcher.NetWatcher.name
-  //network_watcher_name = "NetworkWatcher_westus"
-  resource_group_name  = azurerm_resource_group.rg.name
-  //resource_group_name = "NetworkWatcherRG"
-  name                 = "vnetB-flow-logs"
-
-  target_resource_id        = azurerm_virtual_network.vnetB.id
-  storage_account_id        = azurerm_storage_account.flowlogs.id
-  enabled                   = true
-  version = 2
-
-  retention_policy {
-    enabled = true
-    days    = 1
-  }
-  depends_on = [ azurerm_network_watcher.NetWatcher,azurerm_resource_group.rg,azurerm_network_security_group.nsg-ticketing-web01-prod,azurerm_network_security_group.nsg-ticketing-web01-dev,azurerm_network_security_group.nsg-ticketing-jump01,azurerm_network_security_group.nsg-ticketing-proc01-prod]  
 }
 
 
