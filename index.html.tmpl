@@ -33,7 +33,69 @@
             </div>
         </div>
         {{ end }}
+        {{ if ne (getenv "AZSUBSCRIPTION_NEW_USER_EMAIL") "" }}
+        <div class="account azureSubscription">
+            <div class="card">
+                <div class="header">
+                    <div class="logo">
+                        <img alt="icon" src="/assets/azure.svg">
+                    </div>
+                    <div class="title">
+                        <h2>AZSubscription</h2>
+                        <p>Azure Subscription</p>
+                    </div>
+                </div>
+                <div class="properties">
+                    <div class="key">Login URL:</div>
+                    <div class="value">
+                        <a href="https://portal.azure.com" target="_blank">Azure Portal</a>
+                    </div>
+                    <div class="key">Subscription ID:</div>
+                    <div class="value" data-copyable>{{ getenv "AZSUBSCRIPTION_NEW_SUBSCRIPTION_ID" }}</div>
+                    <div class="key">Tenant ID:</div>
+                    <div class="value" data-copyable>{{ getenv "AZSUBSCRIPTION_TENANT_ID" }}</div>
+                    <div class="key">Username:</div>
+                    <div class="value" data-copyable>{{ getenv "AZSUBSCRIPTION_NEW_USER_EMAIL" }}</div>
+                    <div class="key">Password:</div>
+                    <div class="value" data-copyable>{{ getenv "AZSUBSCRIPTION_NEW_USER_PASSWORD" }}</div>
+                </div>
+            </div>
+        </div>
+        {{ end }}
 
+        {{ if ne (getenv "INSTRUQT_AWS_ACCOUNTS") "" }}
+            {{ range $i, $a := (.Env.INSTRUQT_AWS_ACCOUNTS | strings.Split ",") }}
+        <div class="account awsAccount">
+            <div class="card">
+                <div class="header">
+                    <div class="logo">
+                        <img alt="icon" src="/assets/aws-account.svg">
+                    </div>
+                    <div class="title">
+                        <h2>{{ getenv (print "INSTRUQT_AWS_ACCOUNT_" $a "_ACCOUNT_NAME") }}</h2>
+                        <p>AWS Account</p>
+                    </div>
+                </div>
+                <div class="properties">
+                    <div class="key">Account ID:</div>
+                    <div class="value">
+                        <a href="https://instruqt-{{ getenv (print "INSTRUQT_AWS_ACCOUNT_" $a "_ACCOUNT_ID") }}.signin.aws.amazon.com/console" target="_blank">
+                            {{ getenv (print "INSTRUQT_AWS_ACCOUNT_" $a "_ACCOUNT_ID") }}
+                        </a>
+                    </div>
+                    <div class="key">Username:</div>
+                    <div class="value" data-copyable>{{ getenv (print "INSTRUQT_AWS_ACCOUNT_" $a "_USERNAME") }}</div>
+                    <div class="key">Password:</div>
+                    <div class="value" data-copyable>{{ getenv (print "INSTRUQT_AWS_ACCOUNT_" $a "_PASSWORD") }}</div>
+                    <div class="key">Access Key ID:</div>
+                    <div class="value" data-copyable>{{ getenv (print "INSTRUQT_AWS_ACCOUNT_" $a "_AWS_ACCESS_KEY_ID") }}</div>
+                    <div class="key">Secret Access Key:</div>
+                    <div class="value" data-copyable>{{ getenv (print "INSTRUQT_AWS_ACCOUNT_" $a "_AWS_SECRET_ACCESS_KEY") }}</div>
+                </div>
+            </div>
+        </div>
+            {{ end }}
+        {{ end }}
         
     </div>
 
