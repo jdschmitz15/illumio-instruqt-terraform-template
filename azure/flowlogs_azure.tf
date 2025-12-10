@@ -33,7 +33,7 @@ resource "azurerm_network_watcher_flow_log" "vnetA_flowlogs" {
   target_resource_id        = azurerm_virtual_network.vnetA.id
   storage_account_id        = azurerm_storage_account.flowlogs.id
   enabled                   = true
-  #version = 2
+  version = 2
 
   retention_policy {
     enabled = true
@@ -53,7 +53,7 @@ resource "azurerm_network_watcher_flow_log" "vnetB_flowlogs" {
   target_resource_id        = azurerm_virtual_network.vnetB.id
   storage_account_id        = azurerm_storage_account.flowlogs.id
   enabled                   = true
-  #version = 2
+  version = 2
 
   retention_policy {
     enabled = true
