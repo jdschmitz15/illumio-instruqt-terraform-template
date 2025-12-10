@@ -13,6 +13,12 @@ resource "azurerm_storage_account" "flowlogs" {
   account_tier              = "Standard"
   #account_kind              = "StorageV2"
   account_replication_type  = "LRS"
+
+  blob_properties {
+    delete_retention_policy {
+    days = 2
+    }
+  }
 }
 
 
@@ -22,7 +28,7 @@ resource "azurerm_network_watcher_flow_log" "vnetA_flowlogs" {
   //network_watcher_name = "NetworkWatcher_westus"
   resource_group_name  = azurerm_resource_group.rg.name
   //resource_group_name = "NetworkWatcherRG"
-  name                 = "vnetA-finstruqttestdrive-flowlog"
+  name                 = "vnetA-instruqttestdrive-flowlog"
 
   target_resource_id        = azurerm_virtual_network.vnetA.id
   storage_account_id        = azurerm_storage_account.flowlogs.id

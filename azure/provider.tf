@@ -3,7 +3,7 @@ terraform {
   required_providers {
     azapi = {
       source  = "azure/azapi"
-      version = "~>1.5"
+      version = ">=1.5"
     }  
     illumio-cloudsecure = {
       source  = "illumio/illumio-cloudsecure"
