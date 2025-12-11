@@ -57,4 +57,16 @@ locals  {
   #account_id_prefix = replace(split("@", var.account_id)[0],"+","")
   #storage_name = "instruqtsa${local.account_id_prefix}${random_id.random_id.hex}"
   storage_name = "sa${local.account_id_prefix}"
+  startupscript = <<CUSTOM_DATA
+#!/bin/bash
+sudo apt install unzip -y
+#get the traffic-generator application and make it executable
+curl -L https://github.com/brian1917/traffic-generator/releases/download/v1.0.5/linux_amd64.zip -o tg.zip
+unzip ./tg.zip 
+chmod +x ./linux_amd64/traffic-generator
+#get the base traffic file 
+curl -L https://raw.githubusercontent.com/jdschmitz15/manual-instruqt-startup/refs/heads/main/traffic.csv -o ./linux_amd64/traffic.csv
+#Run the traffic generator with the traffic file downloaded in headless mode
+./linux_amd64/traffic-generator continuous ./linux_amd64/traffic.csv  > /dev/null 2>&1 &
+CUSTOM_DATA
 }
