@@ -40,7 +40,7 @@ resource "aws_instance" "pos-proc01-prd" {
   tags = {
     Name  = "pos-proc01-prd"
     Env = "prod"
-    Role = "proc"
+    Role = "processing"
   }
 
   user_data = <<-EOF
@@ -69,7 +69,7 @@ resource "aws_instance" "pos-db01-prd" {
   tags = {
     Name  = "pos-db01-prd"
     Env = "prod"
-    Role = "proc"
+    Role = "db"
   }
 
   user_data = <<-EOF
@@ -129,7 +129,7 @@ resource "aws_instance" "hr-proc01-prd" {
   tags = {
     Name  = "hr-proc01-prd"
     Env = "prod"
-    Role = "proc"
+    Role = "processing"
   }
 
   user_data = <<-EOF
