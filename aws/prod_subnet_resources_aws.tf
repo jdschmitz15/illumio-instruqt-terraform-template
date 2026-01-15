@@ -219,7 +219,7 @@ resource "aws_instance" "crm-proc01-prd" {
   tags = {
     Name  = "crm-proc01-prd"
     Env = "prod"
-    Role = "proc"
+    Role = "processing"
   }
 
   user_data = <<-EOF
