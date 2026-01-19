@@ -27,7 +27,7 @@ resource "null_resource" "write_private_key" {
     command = <<-EOT
     mkdir -p "$${HOME}/.ssh"
     chmod 700 "$${HOME}/.ssh"
-    cat > "$${HOME}/.ssh/${random_pet.ssh_key_name.id}" <<'KEY'
+    cat > "$${HOME}/.ssh/${random_pet.ssh_key_name.id}-azure" <<'KEY'
 ${azapi_resource_action.ssh_public_key_gen.output.privateKey}
 KEY
     chmod 600 "$${HOME}/.ssh/${random_pet.ssh_key_name.id}"
