@@ -19,21 +19,28 @@ resource "azapi_resource" "ssh_public_key" {
   parent_id = azurerm_resource_group.rg.id
 }
 
-resource "null_resource" "write_private_key" {
-  depends_on = [azapi_resource_action.ssh_public_key_gen]
-
-  provisioner "local-exec" {
-    interpreter = ["/bin/bash", "-c"]
-    command = <<-EOT
-    mkdir -p "$${HOME}/.ssh"
-    chmod 700 "$${HOME}/.ssh"
-    cat > "$${HOME}/.ssh/${random_pet.ssh_key_name.id}-azure" <<'KEY'
-${azapi_resource_action.ssh_public_key_gen.output.privateKey}
-KEY
-    chmod 600 "$${HOME}/.ssh/${random_pet.ssh_key_name.id}"
-    EOT
-  }
+# Save private key locally (NOT in Terraform state)
+resource "local_file" "private_key" {
+  content  = azapi_resource_action.ssh_public_key_gen.output.privateKey
+  filename = "/root/.ssh/${random_pet.ssh_key_name.id}-azure"
+  file_permission = "0600"
 }
+
+# resource "null_resource" "write_private_key" {
+#   depends_on = [azapi_resource_action.ssh_public_key_gen]
+
+#   provisioner "local-exec" {
+#     interpreter = ["/bin/bash", "-c"]
+#     command = <<-EOT
+#     mkdir -p "$${HOME}/.ssh"
+#     chmod 700 "$${HOME}/.ssh"
+#     cat > "$${HOME}/.ssh/${random_pet.ssh_key_name.id}-azure" <<'KEY'
+# ${azapi_resource_action.ssh_public_key_gen.output.privateKey}
+# KEY
+#     chmod 600 "$${HOME}/.ssh/${random_pet.ssh_key_name.id}"
+#     EOT
+#   }
+# }
 
 output "publickey_data" {
   value = azapi_resource_action.ssh_public_key_gen.output.publicKey
