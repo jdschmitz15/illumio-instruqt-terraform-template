@@ -59,6 +59,7 @@ locals  {
   storage_name = "sa${local.account_id_prefix}"
   startupscript = <<CUSTOM_DATA
 #!/bin/bash
+cd ~
 sudo apt install unzip -y
 #get the traffic-generator application and make it executable
 curl -L https://github.com/brian1917/traffic-generator/releases/download/v1.0.5/linux_amd64.zip -o tg.zip
