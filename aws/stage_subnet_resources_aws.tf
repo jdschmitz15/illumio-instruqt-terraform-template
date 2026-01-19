@@ -10,8 +10,7 @@ resource "aws_instance" "crm-web01-stg" {
   vpc_security_group_ids = [aws_security_group.stagewebsg.id]
   private_ip = "10.10.4.41"
   #key_name               = aws_key_pair.tempkey.key_name
-  key_name                = tls_private_key.ssh_key.name
-
+  key_name                = aws_key_pair.generated.key_name
   tags = {
     Name  = "crm-web01-stg"
     Env = "staging"
@@ -52,7 +51,7 @@ resource "aws_instance" "crm-proc01-stg" {
   vpc_security_group_ids = [aws_security_group.stageprocsg.id]
   private_ip = "10.10.4.42"
   #key_name               = aws_key_pair.tempkey.key_name
-  key_name                = tls_private_key.ssh_key.name
+  key_name                = aws_key_pair.generated.key_name
 
   tags = {
     Name  = "crm-proc01-stg"
@@ -94,7 +93,7 @@ resource "aws_instance" "crm-db01-stg" {
   vpc_security_group_ids = [aws_security_group.stagedbsg.id]
   private_ip = "10.10.4.43"
   #key_name               = aws_key_pair.tempkey.key_name
-  key_name                = tls_private_key.ssh_key.name
+  key_name                = aws_key_pair.generated.key_name
 
   tags = {
     Name  = "crm-db01-stg"
