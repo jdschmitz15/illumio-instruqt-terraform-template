@@ -4,10 +4,16 @@ resource "tls_private_key" "ssh_key" {
   rsa_bits  = 4096
 }
 
+resource "random_pet" "ssh_key_name" {
+  prefix    = "ssh"
+  separator = ""
+}
+
 # Save private key locally (NOT in Terraform state)
 resource "local_file" "private_key" {
   content  = tls_private_key.ssh_key.private_key_pem
-  filename = "id_rsa"
+  
+  filename = "$${HOME}/.ssh/${random_pet.ssh_key_name.id}"
   file_permission = "0600"
 }
 
