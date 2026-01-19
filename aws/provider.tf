@@ -23,12 +23,6 @@ provider "aws" {
   region = "us-east-1" 
 }
 
-// filepath: /Users/jeff.schmitz/go/src/github.com/jdschmitz15/illumio-instruqt-terraform-template/aws/ssh_key.tf
-resource "aws_key_pair" "tempkey" {
-  key_name   = "tempkey"
-  public_key = file("/root/illumio-instruqt-terraform-template/tempkey.pub")
-}
-
 locals  {
   # Extract the account ID prefix from the variable and create a bucket name
   account_id_prefix = replace(split("@", var.account_id)[0],"+","")

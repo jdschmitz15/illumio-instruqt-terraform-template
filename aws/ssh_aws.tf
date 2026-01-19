@@ -16,3 +16,9 @@ resource "aws_key_pair" "generated" {
   key_name   = "my-key"
   public_key = tls_private_key.ssh_key.public_key_openssh
 }
+
+# // filepath: /Users/jeff.schmitz/go/src/github.com/jdschmitz15/illumio-instruqt-terraform-template/aws/ssh_key.tf
+# resource "aws_key_pair" "tempkey" {
+#   key_name   = "tempkey"
+#   public_key = file("/root/illumio-instruqt-terraform-template/aws/tempkey.pub")
+# }
