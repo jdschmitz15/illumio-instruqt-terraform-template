@@ -3,6 +3,7 @@ resource "aws_instance" "jumphost01" {
   ami                    = var.instance_ami
   instance_type          = var.instance_type
   availability_zone      = aws_subnet.public_subnet.availability_zone
+  key_name               = aws_key_pair.generated.key_name
   subnet_id              = aws_subnet.public_subnet.id
   vpc_security_group_ids = [aws_security_group.publicsg.id]
   private_ip = "10.0.1.10"
