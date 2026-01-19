@@ -8,6 +8,8 @@ resource "aws_instance" "pos-web01-prd" {
   subnet_id              = aws_subnet.prod_subnet.id
   vpc_security_group_ids = [aws_security_group.prodwebsg.id]
   private_ip = "10.0.2.21"
+  key_name               = aws_key_pair.generated.key_name
+  
   tags = {
     Name  = "pos-web01-prd"
     Env = "prod"
@@ -37,6 +39,8 @@ resource "aws_instance" "pos-proc01-prd" {
   subnet_id              = aws_subnet.prod_subnet.id
   vpc_security_group_ids = [aws_security_group.prodprocsg.id]
   private_ip = "10.0.2.22"
+  key_name               = aws_key_pair.generated.key_name
+
   tags = {
     Name  = "pos-proc01-prd"
     Env = "prod"
@@ -66,6 +70,8 @@ resource "aws_instance" "pos-db01-prd" {
   subnet_id              = aws_subnet.prod_subnet.id
   vpc_security_group_ids = [aws_security_group.proddbsg.id]
   private_ip = "10.0.2.23"
+  key_name               = aws_key_pair.generated.key_name
+
   tags = {
     Name  = "pos-db01-prd"
     Env = "prod"
@@ -98,6 +104,8 @@ resource "aws_instance" "hr-web01-prd" {
   subnet_id              = aws_subnet.prod_subnet.id
   vpc_security_group_ids = [aws_security_group.prodwebsg.id]
   private_ip = "10.0.2.31"
+  key_name               = aws_key_pair.generated.key_name
+
   tags = {
     Name  = "hr-web01-prd"
     Env = "prod"
@@ -126,6 +134,8 @@ resource "aws_instance" "hr-proc01-prd" {
   subnet_id              = aws_subnet.prod_subnet.id
   vpc_security_group_ids = [aws_security_group.prodprocsg.id]
   private_ip = "10.0.2.32"
+  key_name               = aws_key_pair.generated.key_name
+
   tags = {
     Name  = "hr-proc01-prd"
     Env = "prod"
@@ -155,6 +165,8 @@ resource "aws_instance" "hr-db01-prd" {
   subnet_id              = aws_subnet.prod_subnet.id
   vpc_security_group_ids = [aws_security_group.proddbsg.id]
   private_ip = "10.0.2.33"
+  key_name               = aws_key_pair.generated.key_name
+
   tags = {
     Name  = "hr-db01-prd"
     Env = "prod"
@@ -187,6 +199,8 @@ resource "aws_instance" "crm-web01-prd" {
   subnet_id              = aws_subnet.prod_subnet.id
   vpc_security_group_ids = [aws_security_group.prodwebsg.id]
   private_ip = "10.0.2.41"
+  key_name               = aws_key_pair.generated.key_name
+
   tags = {
     Name  = "crm-web01-prd"
     Env = "prod"
@@ -216,6 +230,8 @@ resource "aws_instance" "crm-proc01-prd" {
   subnet_id              = aws_subnet.prod_subnet.id
   vpc_security_group_ids = [aws_security_group.prodprocsg.id]
   private_ip = "10.0.2.42"
+  key_name               = aws_key_pair.generated.key_name
+
   tags = {
     Name  = "crm-proc01-prd"
     Env = "prod"
@@ -245,6 +261,8 @@ resource "aws_instance" "crm-db01-prd" {
   subnet_id              = aws_subnet.prod_subnet.id
   vpc_security_group_ids = [aws_security_group.proddbsg.id]
   private_ip = "10.0.2.43"
+  key_name               = aws_key_pair.generated.key_name
+
   tags = {
     Name  = "crm-db01-prd"
     Env = "prod"
